@@ -1,22 +1,22 @@
 {
     "title": {
-        "html": "Getting started",
+        "html": "Employer sponsored retirement plans",
         "tag": "h1"
     },
     "body": {
-        "html": "1. Do you have $1,000 available to you immediately (in a savings account, for example)?",
+        "html": "Does your employer provide a 401(k) retirement plan with matching contributions?",
         "tag": "p"
     },
     "nav": [{
         "html": "Yes",
         "class": "btn btn-success",
         "tag": "button",
-        "navTo": "slide2"
+        "navTo": "slide4"
     }, {
         "html": "No",
         "class": "btn pull-right btn-info",
         "tag": "button",
-        "navTo": "slide2"
+        "navTo": "slide4"
     }],
     "readMore": {
         "title": {
@@ -25,7 +25,7 @@
             "class": "panel-title"
         },
         "body": {
-            "html": "<p>This is money you should have on hand to account for emergencies, like your car breaking down. You should only count money you have set aside, not cash flow from recent paychecks.</p><br><img class='img-responsive' src='https://upload.wikimedia.org/wikipedia/commons/d/db/B%C3%A9zier_3_big.gif'></img>",
+            "html":"A 401(k) is a tax-advantaged retirement account, and employers often ‘match’ employee contributions up to a specified percentage of income. An employer match is a guaranteed return on investment, so this is a very high financial priority!",
             "tag": "p"
         },
         "tag": "h2",

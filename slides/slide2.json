@@ -1,22 +1,22 @@
 {
     "title": {
-        "html": "Slide2",
+        "html": "Debts",
         "tag": "h1"
     },
     "body": {
-        "html": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "html": "Do you have any high-interest debts (for example, credit card debt)?",
         "tag": "p"
     },
     "nav": [{
         "html": "Yes",
         "class": "btn btn-success",
         "tag": "button",
-        "navTo": "slide1"
+        "navTo": "slide3"
     }, {
         "html": "No",
         "class": "btn pull-right btn-info",
         "tag": "button",
-        "navTo": "slide1"
+        "navTo": "slide3"
     }],
     "readMore": {
         "title": {
@@ -25,7 +25,7 @@
             "class": "panel-title"
         },
         "body": {
-            "html": "<p>Body text for more info.</p><br><img class='img-responsive' src='https://upload.wikimedia.org/wikipedia/commons/d/db/B%C3%A9zier_3_big.gif'></img>",
+            "html":"These are debts that carry high interest rates (>5%). Paying down high interest debts is an important priority, because eliminating the interest that would accumulate is a guaranteed return on your investment.",
             "tag": "p"
         },
         "tag": "h2",

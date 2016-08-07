@@ -1,22 +1,22 @@
 {
     "title": {
-        "html": "Getting started",
+        "html": "Individual Retirement Accounts (IRA)",
         "tag": "h1"
     },
     "body": {
-        "html": "1. Do you have $1,000 available to you immediately (in a savings account, for example)?",
+        "html": "Do you have a Roth Individual Retirement Account (Roth IRA)?",
         "tag": "p"
     },
     "nav": [{
         "html": "Yes",
         "class": "btn btn-success",
         "tag": "button",
-        "navTo": "slide2"
+        "navTo": "slide6"
     }, {
         "html": "No",
         "class": "btn pull-right btn-info",
         "tag": "button",
-        "navTo": "slide2"
+        "navTo": "slide6"
     }],
     "readMore": {
         "title": {
@@ -25,8 +25,8 @@
             "class": "panel-title"
         },
         "body": {
-            "html": "<p>This is money you should have on hand to account for emergencies, like your car breaking down. You should only count money you have set aside, not cash flow from recent paychecks.</p><br><img class='img-responsive' src='https://upload.wikimedia.org/wikipedia/commons/d/db/B%C3%A9zier_3_big.gif'></img>",
-            "tag": "p"
+            "html": "IRAs are tax-advantaged retirement accounts, similar to the 401(k), but they are independent of your employer, meaning you have a better selection of funds to invest in. Note that high income individuals may be ineligible for a Roth account. <<Click here for more info; Link to detailed explanation of Roth vs Traditional, income caps, backdoor Roth conversions>>.",
+             "tag": "p"
         },
         "tag": "h2",
         "html": "<span class='glyphicon glyphicon-question-sign' aria-hidden='true'></span>",

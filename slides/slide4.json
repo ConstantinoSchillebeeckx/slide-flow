@@ -1,22 +1,22 @@
 {
     "title": {
-        "html": "Getting started",
+        "html": "Six-month emergency savings",
         "tag": "h1"
     },
     "body": {
-        "html": "1. Do you have $1,000 available to you immediately (in a savings account, for example)?",
+        "html": "Do you have enough money saved to cover your expenses for six months if you had no income (for example, if you lost your job)?",
         "tag": "p"
     },
     "nav": [{
         "html": "Yes",
         "class": "btn btn-success",
         "tag": "button",
-        "navTo": "slide2"
+        "navTo": "slide5"
     }, {
         "html": "No",
         "class": "btn pull-right btn-info",
         "tag": "button",
-        "navTo": "slide2"
+        "navTo": "slide5"
     }],
     "readMore": {
         "title": {
@@ -25,7 +25,7 @@
             "class": "panel-title"
         },
         "body": {
-            "html": "<p>This is money you should have on hand to account for emergencies, like your car breaking down. You should only count money you have set aside, not cash flow from recent paychecks.</p><br><img class='img-responsive' src='https://upload.wikimedia.org/wikipedia/commons/d/db/B%C3%A9zier_3_big.gif'></img>",
+            "html": "A six-month ‘emergency fund’ is recommend to prepare for unplanned circumstances, like losing your job. Even though keeping this amount of money in a savings account means that it will have a very low rate of return/growth, it keeps you from going into debt in an emergency.",
             "tag": "p"
         },
         "tag": "h2",
