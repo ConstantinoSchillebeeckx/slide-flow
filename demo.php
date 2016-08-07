@@ -31,11 +31,19 @@
     <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
+    <script> 
+        // simple PHP directory scan for JSON files
+        var json = 
+        <?php
+            $dir = 'slides/';
+            $files = array_values( array_diff( scandir($dir), array('..', '.') ) ); 
+            echo json_encode( preg_filter('/^/', $dir, $files) );
+        ?> 
+    </script>
+
     <script>
         jQuery( document ).ready(function() {
-            var json = ['slides/slide1.json','slides/slide2.json'];
             var deck = new SlideDeck('#slides', json);
-            console.log(deck)
             deck.show();
         });
     </script>
