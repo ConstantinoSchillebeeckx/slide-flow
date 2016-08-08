@@ -12,6 +12,10 @@ var defaultSlide = {
         tag: "h2", html: '<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>', class: "readMore text-primary"
     },
 }
+var profile = {}; // this is where we store the users to the various questions for later use
+var currentSlide = 0; // current slide ID, where ID is the internal counter; gets updated by the show() method
+
+
 
 
 /* Slide deck class
@@ -101,6 +105,7 @@ SlideDeck.prototype.show = function(id, pos) {
 
     id = typeof id === 'undefined' ? 0: id;
 
+    currentSlide = id;
     dat = this.slides[id];
 
     if (!dat) { throw new Error("Data doesn't exist for slide " + id); }
@@ -219,6 +224,7 @@ SlideDeck.prototype.show = function(id, pos) {
                 .attr("class", item.class)
                 .attr("id", item.id)
                 .attr('type', item.type)
+                .attr('name', item.name)
                 .attr("onclick","nextSlide('" + item.navTo + "', this)")
                 .html(item.html);
         }
@@ -235,16 +241,36 @@ SlideDeck.prototype.show = function(id, pos) {
 Parameters:
 - navTo : str
           base file name of JSON slide to navigate to
+- el : element
+       'this' of the button that was clicked
 */
-function nextSlide(navTo) {
+function nextSlide(navTo, el) {
 
     jQuery('#submit_handle').click(); // needed to check required inputs
 
-    if (jQuery('form')[0].checkValidity()) {
+    if (jQuery('form')[0].checkValidity()) { // if form is valid
 
-        var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
+        if (!(currentSlide in profile)) {
+            profile[currentSlide] = {}
+        }
 
+        // store the input fields data (if available)
+        var inputVals = jQuery('form').serializeArray();
+        if (inputVals.length) {
+            var dat = {};
+            jQuery(inputVals).each(function(index, obj){
+                dat[obj.name] = obj.value;
+            });
+            profile[currentSlide]['input'] = dat;
+        } 
+
+        // store the clicked button 
+        var navName = jQuery(el).attr('name');
+        profile[currentSlide]['answer'] = navName;
+
+        // remove current slide and navigate to next one
         jQuery('#slide').remove()
+        var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
         globalSlideDeck.show(id);
     }
 }
