@@ -32,18 +32,28 @@
     <script type="text/javascript" src="js/main.js"></script>
 
     <script> 
-        // simple PHP directory scan for JSON files
-        var json = 
+        // simple recursive PHP directory scan for JSON files
+        // will return a sorted (alphabetic) list of (full path) JSON files
+        // http://stackoverflow.com/a/24784020/1153897
+        var jsonFiles = 
         <?php
-            $dir = 'slides/';
-            $files = array_values( array_diff( scandir($dir), array('..', '.') ) ); 
-            echo json_encode( preg_filter('/^/', $dir, $files) );
+            $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('slides/'));
+            $files = array(); 
+            foreach ($rii as $file) {
+                foreach ($rii as $file) {
+                    if (!$file->isDir())
+                        $files[] = $file->getPathname();
+                }
+            }
+            sort($files);
+            echo json_encode($files);
         ?> 
     </script>
 
     <script>
         jQuery( document ).ready(function() {
-            var deck = new SlideDeck('#slides', json);
+            var deck = new SlideDeck('#slides', jsonFiles);
+            console.log(deck);
             deck.show();
         });
     </script>

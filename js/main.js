@@ -14,7 +14,34 @@ var defaultSlide = {
 }
 
 
+/* Slide deck class
 
+Generats a class object that represents a slidedeck composed of numerous
+slides that link together with navigation buttons.
+
+Each slide will automatically get defined an internal ID (a simple counter
+starting at 0).  For navigating between slides, slides should be referenced
+by their JSON file name.
+
+Parameter:
+----------
+- sel : str
+        selector in which to render slides
+- json : array
+         list of JSON files that define the slide attributes
+
+
+Class attributes:
+-----------------
+- sel : str
+        selector in which slides will be rendered
+- json : array
+         list of JSON files defining the slides
+- fileMap : obj
+            {internal id: full-path JSON base filename (without extension) }
+- slides : array
+           list of parsed JSON file data
+*/
 function SlideDeck (sel, json) {
 
     // check attributes
@@ -37,12 +64,13 @@ function SlideDeck (sel, json) {
         // load each JSON
         for (var i = 0; i < json.length; i++) {
 
-            var fileName = json[i].split('/').slice(-1)[0].replace('.json','');
-
+            var fileName = json[i].replace('.json',''); // remove JSON file type
             this.fileMap[fileName] = i;
+
             jQuery.getJSON( json[i], function( data ) {
                 slides.push(data);
             });
+
         }
         this.slides = slides;
     }
@@ -53,6 +81,16 @@ function SlideDeck (sel, json) {
 }
 
 
+/* Slide deck method for displaying a slide
+
+Parameters:
+-----------
+- id : int (optional)
+       internal ID for slide to show, if not
+       specified, the 0th slide is shown
+- pos : not implemented
+
+*/
 SlideDeck.prototype.show = function(id, pos) {
 
     id = typeof id === 'undefined' ? 0: id;
@@ -147,12 +185,21 @@ SlideDeck.prototype.show = function(id, pos) {
 
 
 
+/* Global function for transitioning slides
 
+Parameters:
+- navTo : str
+          base file name of JSON slide to navigate to
+- el : str
+       not implemented
 
+*/
 function nextSlide(navTo, el) {
 
-    var navClass = jQuery(el).attr('class');
+    //var navClass = jQuery(el).attr('class');
     var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
+
+    console.log(navTo, id);
 
     jQuery('#slide').remove()
     globalSlideDeck.show(id);
