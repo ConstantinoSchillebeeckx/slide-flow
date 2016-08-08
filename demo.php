@@ -54,7 +54,7 @@
         jQuery( document ).ready(function() {
             var deck = new SlideDeck('#slides', jsonFiles);
             console.log(deck);
-            deck.show();
+            deck.show(<?php echo isset($_GET['slide']) ? $_GET['slide'] : null ?>);
         });
     </script>
 

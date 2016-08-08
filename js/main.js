@@ -61,7 +61,7 @@ function SlideDeck (sel, json) {
     } else if (json instanceof Array) {
 
         jQuery.ajaxSetup({
-            async: false
+            async: false // :(
         });
 
         // load each JSON
@@ -165,26 +165,65 @@ SlideDeck.prototype.show = function(id, pos) {
     container.append('tag' in dat.body ? dat.body.tag : 'p')
         .html(dat.body.html);
 
-    // nav buttons
-    var nav = container.append("div")
-        .attr("class","row")
-      .append("div")
-        .attr("class","col-sm-12")
+    var form = container.append('form')
+            .attr('onsubmit','return false'); // we don't want the form to actually submit
 
-    for (var i = 0; i < dat.nav.length; i++) {
 
-        var item = dat.nav[i];
+    // input
+    if ('input' in dat) {
 
-        nav.append('tag' in item ? item.tag : 'button')
-            .attr("class", item.class)
-            .attr("id", item.id)
-            .attr("onclick","nextSlide('" + item.navTo + "', this)")
-            .html(item.html);
+        // add a hidden submit button to the form so that we can
+        // still do input form validation without submitting
+        // http://stackoverflow.com/a/19291066/1153897
+        form.append('button')
+            .attr('type','submit')
+            .attr('id','submit_handle')
+            .style('display','none')
+
+        var input = form.append("div")
+            .attr("class","row")
+            .attr("id","inputRow")
+          .append("div")
+            .attr("class","col-sm-12")
+
+        for (var i = 0; i < dat.input.length; i++) {
+
+            var item = dat.input[i];
+
+            var el = input.append('input')
+                .attr('class', item.class)
+                .attr("type", item.type)
+                .attr("name", item.name)
+                .attr("id","input-" + i);
+
+            jQuery('#input-' + i).prop(item.attributes, true); // set attributes e.g. required, checked
+                
+            input.append('span')
+                .html(item.html);
+        }
     }
 
+    // nav buttons
+    if ('nav' in dat) {
+        var nav = form.append("div")
+            .attr("class","row")
+            .attr("id","navRow")
+          .append("div")
+            .attr("class","col-sm-12")
 
+        for (var i = 0; i < dat.nav.length; i++) {
 
-    container.append("div")
+            var item = dat.nav[i];
+
+            nav.append('tag' in item ? item.tag : 'button')
+                .attr("class", item.class)
+                .attr("id", item.id)
+                .attr('type', item.type)
+                .attr("onclick","nextSlide('" + item.navTo + "', this)")
+                .html(item.html);
+        }
+    }
+
         
 }
 
@@ -196,21 +235,16 @@ SlideDeck.prototype.show = function(id, pos) {
 Parameters:
 - navTo : str
           base file name of JSON slide to navigate to
-- el : str
-       not implemented
-
 */
-function nextSlide(navTo, el) {
+function nextSlide(navTo) {
 
-    //var navClass = jQuery(el).attr('class');
-    var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
+    jQuery('#submit_handle').click(); // needed to check required inputs
 
-    console.log(navTo, id);
+    if (jQuery('form')[0].checkValidity()) {
 
-    jQuery('#slide').remove()
-    globalSlideDeck.show(id);
+        var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
 
-    //globalSlideDeck.show(id, navClass.indexOf('pull-right') !== -1 ? 'right' : 'left');
-    //jQuery("#slide").animate({"left": "-="+moveDistance, "opacity":0}, "slow");
-
+        jQuery('#slide').remove()
+        globalSlideDeck.show(id);
+    }
 }
