@@ -47,6 +47,9 @@ function SlideDeck (sel, json) {
     // check attributes
     if (typeof sel === 'undefined') { throw new Error("You must provide a selection within which to render the slide."); }
 
+    // show loading spinner
+    jQuery(sel).append('<div class="text-center loading"><i class="fa fa-spinner fa-2x fa-spin text-primary" aria-hidden="true"></i><span> Loading...</span></div>');
+
     this.sel = sel;
     this.json = json;
     this.fileMap = {}
@@ -77,6 +80,9 @@ function SlideDeck (sel, json) {
 
 
     globalSlideDeck = this;  // :(
+
+    // remove spinner
+    jQuery(".loading").remove();
 
 }
 

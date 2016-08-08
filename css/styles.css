@@ -1,0 +1,12 @@
+.loading {
+    font-size: 21px;
+    font-weight: 300;
+    margin-top: 50px;
+    position: relative;
+}
+
+.loading span {
+    margin-left: 15px;
+    position: absolute;
+    top: 50%;
+}
