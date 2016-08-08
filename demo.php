@@ -54,7 +54,7 @@
         jQuery( document ).ready(function() {
             var deck = new SlideDeck('#slides', jsonFiles);
             console.log(deck);
-            deck.show(<?php echo isset($_GET['slide']) ? $_GET['slide'] : null ?>);
+            deck.show(<?php echo isset($_GET['slide']) ? $_GET['slide'] : null ?>); // to navigate directly to a slide, use the 'slide' get var; e.g. ?slide=3 where the number is the internal slide ID
         });
     </script>
 
