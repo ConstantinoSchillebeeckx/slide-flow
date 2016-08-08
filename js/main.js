@@ -225,7 +225,7 @@ SlideDeck.prototype.show = function(id, pos) {
                 .attr("id", item.id)
                 .attr('type', item.type)
                 .attr('name', item.name)
-                .attr("onclick","nextSlide('" + item.navTo + "', this)")
+                .attr("onclick", item.onclick)
                 .html(item.html);
         }
     }
@@ -273,4 +273,19 @@ function nextSlide(navTo, el) {
         var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
         globalSlideDeck.show(id);
     }
+}
+
+
+// display stored profile
+function showProfile() {
+
+    d3.select('#slide').append('h2')
+        .html('Current profile')
+
+    for (var key in profile) {
+        d3.select('#slide').append('p')
+            .html('<strong>Slide ' + key + '</strong> ' + JSON.stringify(profile[key]))
+    }
+
+
 }

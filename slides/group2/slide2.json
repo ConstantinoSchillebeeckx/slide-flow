@@ -8,15 +8,15 @@
         "tag": "p"
     },
     "nav": [{
-        "html": "Yes",
-        "class": "btn btn-success",
+        "html": "Back",
+        "class": "btn btn-warning",
         "tag": "button",
-        "navTo": "slides/group2/slide1"
+        "onclick": "nextSlide('slides/group2/slide1', this)"
     }, {
-        "html": "No",
-        "class": "btn pull-right btn-info",
+        "html": "Click to view profile",
+        "class": "btn pull-right btn-danger",
         "tag": "button",
-        "navTo": "slides/group1/slide1"
+        "onclick": "showProfile()"
     }],
     "readMore": {
         "title": {

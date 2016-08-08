@@ -30,14 +30,14 @@ Slides data is loaded through individual JSON files and should follow the format
         "class": "btn btn-success",
         "tag": "button",
         "name": "yes",
-        "navTo": "slides/group1/slide2"
+        "onclick": "nextSlide('slides/group2/slide2', this)"
     },
     {
         "html": "No",
         "class": "btn pull-right btn-info",
         "tag": "button",
         "name": "no",
-        "navTo": "slides/group2/slide2"
+        "onclick": "nextSlide('slides/group2/slide2', this)"
     }
     ],
     "input" : [

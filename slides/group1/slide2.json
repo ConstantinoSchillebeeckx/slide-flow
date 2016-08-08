@@ -11,12 +11,14 @@
         "html": "Yes",
         "class": "btn btn-success",
         "tag": "button",
-        "navTo": "slides/group1/slide1"
+        "name": "yes",
+        "onclick": "nextSlide('slides/group2/slide1', this)"
     }, {
         "html": "No",
         "class": "btn pull-right btn-info",
         "tag": "button",
-        "navTo": "slides/group2/slide1"
+        "name": "no",
+        "onclick": "nextSlide('slides/group2/slide1', this)"
     }],
     "readMore": {
         "title": {
