@@ -71,7 +71,6 @@ function SlideDeck (sel, dir) {
 
 
         if (typeof ajax_object == 'undefined') {
-            var ajax_object = {}
             ajax_object.ajax_url = 'scripts/downloadJSON.php';
         }
 
