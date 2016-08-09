@@ -107,11 +107,11 @@ Parameters:
 - id : int (optional)
        internal ID for slide to show, if not
        specified, the 0th slide is shown
-- pos : not implemented
 
 */
-SlideDeck.prototype.show = function(id, pos) {
+SlideDeck.prototype.show = function(id) {
 
+    // set default
     id = typeof id === 'undefined' ? 0: id;
 
     currentSlide = id;
@@ -124,13 +124,6 @@ SlideDeck.prototype.show = function(id, pos) {
     var container = d3.select(this.sel)
         .append("div")
         .attr("id","slide")
-        .attr("style", function(d) { 
-            if (pos) {
-                return 'position:relative; opacity:1; ' + pos + ':' + containerWidth + 'px'; 
-            } else {
-                return 'position:relative;'; 
-            }
-        })
 
     // title
     var titleRow = container.append('div')
@@ -252,8 +245,14 @@ Parameters:
           base file name of JSON slide to navigate to
 - el : element
        'this' of the button that was clicked
+- store : bool
+          bool for whether to store the click in the profile
+          defaults to true (store the data)
 */
-function nextSlide(navTo, el) {
+function nextSlide(navTo, el, store) {
+
+    // set default
+    store = typeof store === 'undefined' ? true: store;
 
     jQuery('#submit_handle').click(); // needed to check required inputs
 
@@ -273,9 +272,11 @@ function nextSlide(navTo, el) {
             profile[currentSlide]['input'] = dat;
         } 
 
-        // store the clicked button 
-        var navName = jQuery(el).attr('name');
-        profile[currentSlide]['answer'] = navName;
+        // store the clicked button
+        if (store) {
+            var navName = jQuery(el).attr('name');
+            profile[currentSlide]['answer'] = navName;
+        }
 
         // remove current slide and navigate to next one
         jQuery('#slide').remove()
