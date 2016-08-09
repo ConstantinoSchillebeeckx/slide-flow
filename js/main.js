@@ -31,8 +31,8 @@ Parameter:
 ----------
 - sel : str
         selector in which to render slides
-- json : array
-         list of JSON files that define the slide attributes
+- dir : str
+        directory with list of JSON files that define the slide attributes
 
 
 Class attributes:
@@ -46,7 +46,7 @@ Class attributes:
 - slides : array
            list of parsed JSON file data
 */
-function SlideDeck (sel, json) {
+function SlideDeck (sel, dir) {
 
     // check attributes
     if (typeof sel === 'undefined') { throw new Error("You must provide a selection within which to render the slide."); }
@@ -55,33 +55,37 @@ function SlideDeck (sel, json) {
     jQuery(sel).append('<div class="text-center loading"><i class="fa fa-spinner fa-2x fa-spin text-primary" aria-hidden="true"></i><span> Loading...</span></div>');
 
     this.sel = sel;
-    this.json = json;
+    this.dir = dir;
     this.fileMap = {}
-    slides = []; // array of Slide json dat
+    var slides = []; // array of Slide json dat
+    var fileMap = {}; //{ 'file name' : internal ID }
 
     // if no path provided, add a single default slide
-    if (!this.json) {
+    if (!dir) {
         this.slides[0] = defaultSlide;
-    } else if (json instanceof Array) {
+    } else {
 
         jQuery.ajaxSetup({
-            async: false // :(
+            async: false
         });
 
-        // load each JSON
-        for (var i = 0; i < json.length; i++) {
-
-            var fileName = json[i].replace('.json',''); // remove JSON file type
-            this.fileMap[fileName] = i;
-
-            jQuery.getJSON( json[i], function( data ) {
-                slides.push(data);
-            });
-
-        }
+        jQuery.ajax({
+            url: ajax_object.ajax_url,
+            type: "POST",
+            data: {'action':'downloadJSON','dir':dir},
+            dataType: 'json',
+            success: function(response) {
+                slides = response;
+                for (var i = 0; i < response.length; i++) {
+                    var file = response[i].file.replace('.json','');
+                    fileMap[file] = i;
+                }
+            },
+            error: function(error) { console.log(error.responseText); }
+        })
         this.slides = slides;
+        this.fileMap = fileMap;
     }
-
 
     globalSlideDeck = this;  // :(
 
@@ -271,6 +275,7 @@ function nextSlide(navTo, el) {
         // remove current slide and navigate to next one
         jQuery('#slide').remove()
         var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
+        console.log(navTo, id);
         globalSlideDeck.show(id);
     }
 }
