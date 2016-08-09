@@ -31,28 +31,9 @@
     <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
 
-    <script> 
-        // simple recursive PHP directory scan for JSON files
-        // will return a sorted (alphabetic) list of (full path) JSON files
-        // http://stackoverflow.com/a/24784020/1153897
-        var jsonFiles = 
-        <?php
-            $rii = new RecursiveIteratorIterator(new RecursiveDirectoryIterator('slides/'));
-            $files = array(); 
-            foreach ($rii as $file) {
-                foreach ($rii as $file) {
-                    if (!$file->isDir())
-                        $files[] = $file->getPathname();
-                }
-            }
-            sort($files);
-            echo json_encode($files);
-        ?> 
-    </script>
-
     <script>
         jQuery( document ).ready(function() {
-            var deck = new SlideDeck('#slides', jsonFiles);
+            var deck = new SlideDeck('#slides', 'slides/');
             console.log(deck);
             deck.show(<?php echo isset($_GET['slide']) ? $_GET['slide'] : null ?>); // to navigate directly to a slide, use the 'slide' get var; e.g. ?slide=3 where the number is the internal slide ID
         });

@@ -69,6 +69,12 @@ function SlideDeck (sel, dir) {
             async: false
         });
 
+
+        if (typeof ajax_object == 'undefined') {
+            var ajax_object = {}
+            ajax_object.ajax_url = 'scripts/downloadJSON.php';
+        }
+
         jQuery.ajax({
             url: ajax_object.ajax_url,
             type: "POST",
