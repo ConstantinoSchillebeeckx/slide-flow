@@ -73,4 +73,4 @@ Slides data is loaded through individual JSON files and should follow the format
 
 ## Random
 
-the javascript global `profile` is an object which will contain the answered questions.  Keys will be added as the user traverses the slides, the internal slide ID is used as the key.  The data for each slide is stored as an object with the key `answer` which will contain the `name` attribute for the navigation element, as well as a `input` key which will be serialized input field data.
+the javascript global `profile` is an object which will contain the answered questions.  Keys will be added as the user traverses the slides, the internal slide ID is used as the key.  The data for each slide is stored as an object with the key `answer` which will contain the `name` attribute for the navigation element, as well as a `input` key which will be serialized input field data.  If a navigation button does not have the `name` attribute, it won't be recorded.  This allows for the use of a "back" navigation button.
