@@ -240,19 +240,18 @@ SlideDeck.prototype.show = function(id) {
 
 /* Global function for transitioning slides
 
+Will also store 'profile' data on each slide transition.  Note that
+on every button click, data is only stored if the button has a 'name'
+attribute.
+
+
 Parameters:
 - navTo : str
           base file name of JSON slide to navigate to
 - el : element
        'this' of the button that was clicked
-- store : bool
-          bool for whether to store the click in the profile
-          defaults to true (store the data)
 */
-function nextSlide(navTo, el, store) {
-
-    // set default
-    store = typeof store === 'undefined' ? true: store;
+function nextSlide(navTo, el) {
 
     jQuery('#submit_handle').click(); // needed to check required inputs
 
@@ -272,9 +271,9 @@ function nextSlide(navTo, el, store) {
             profile[currentSlide]['input'] = dat;
         } 
 
-        // store the clicked button
-        if (store) {
-            var navName = jQuery(el).attr('name');
+        // store the clicked button if name attribute exists
+        var navName = jQuery(el).attr('name');
+        if (navName) {
             profile[currentSlide]['answer'] = navName;
         }
 
