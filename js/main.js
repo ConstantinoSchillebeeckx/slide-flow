@@ -131,7 +131,7 @@ SlideDeck.prototype.show = function(id) {
       
     titleRow.append('div')
         .attr('class','col-xs-10')
-      .append('tag' in dat.title ? dat.title.tag : 'h1')
+      .append('tag' in dat.title ? dat.title.tag : 'span')
         .html(dat.title.html);
 
 
@@ -232,7 +232,11 @@ SlideDeck.prototype.show = function(id) {
         }
     }
 
-        
+    // run onload func
+    if ('onload' in dat) {
+        var fn = window[dat.onload];
+        if (typeof fn === "function") fn();
+    }
 }
 
 
@@ -280,7 +284,6 @@ function nextSlide(navTo, el) {
         // remove current slide and navigate to next one
         jQuery('#slide').remove()
         var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
-        console.log(navTo, id);
         globalSlideDeck.show(id);
     }
 }
@@ -288,6 +291,7 @@ function nextSlide(navTo, el) {
 
 // display stored profile
 function showProfile() {
+
 
     d3.select('#slide').append('h2')
         .html('Current profile')
