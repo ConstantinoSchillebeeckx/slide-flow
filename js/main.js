@@ -193,23 +193,28 @@ SlideDeck.prototype.show = function(id) {
           .append("div")
             .attr("class","col-sm-12")
 
-        for (var i = 0; i < dat.input.length; i++) {
+        if (dat.input instanceof Array) {
+            for (var i = 0; i < dat.input.length; i++) {
 
-            var item = dat.input[i];
+                var item = dat.input[i];
 
-            var el = input.append('input')
-                .attr('class', item.class)
-                .attr("type", item.type)
-                .attr("name", item.name)
-                .attr("max", item.max)
-                .attr("min", item.min)
-                .attr("placeholder", item.placeholder)
-                .attr("id","input-" + i);
+                var el = input.append('input')
+                    .attr('class', item.class)
+                    .attr("type", item.type)
+                    .attr("name", item.name)
+                    .attr("max", item.max)
+                    .attr("min", item.min)
+                    .attr("placeholder", item.placeholder)
+                    .attr("id","input-" + i);
 
-            jQuery('#input-' + i).prop(item.attributes, true); // set attributes e.g. required, checked
-                
-            input.append('span')
-                .html(item.html);
+                // set attributes e.g. required, checked
+                item.attributes.split(' ').forEach(function(d) {
+                    jQuery('#input-' + i).prop(d, true);
+                })
+                    
+                input.append('span')
+                    .html(item.html);
+            }
         }
     }
 
