@@ -201,6 +201,9 @@ SlideDeck.prototype.show = function(id) {
                 .attr('class', item.class)
                 .attr("type", item.type)
                 .attr("name", item.name)
+                .attr("max", item.max)
+                .attr("min", item.min)
+                .attr("placeholder", item.placeholder)
                 .attr("id","input-" + i);
 
             jQuery('#input-' + i).prop(item.attributes, true); // set attributes e.g. required, checked
@@ -254,12 +257,17 @@ Parameters:
           base file name of JSON slide to navigate to
 - el : element
        'this' of the button that was clicked
+- validate : bool
+             whether to valide the form or not [default: validate form]
 */
-function nextSlide(navTo, el) {
+function nextSlide(navTo, el, validate) {
 
-    jQuery('#submit_handle').click(); // needed to check required inputs
+    // set default
+    validate = typeof validate === 'undefined' ? true: validate;
 
-    if (jQuery('form')[0].checkValidity()) { // if form is valid
+    if (validate) jQuery('#submit_handle').click(); // needed to check required inputs
+
+    if (jQuery('form')[0].checkValidity() || !validate) { // if form is valid
 
         if (!(currentSlide in profile)) {
             profile[currentSlide] = {}
