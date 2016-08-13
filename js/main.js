@@ -41,10 +41,8 @@ Class attributes:
         selector in which slides will be rendered
 - json : array
          list of JSON files defining the slides
-- fileMap : obj
-            {internal id: full-path JSON base filename (without extension) }
 - slides : array
-           list of parsed JSON file data
+           list of parsed JSON file data with full slide name as key
 */
 function SlideDeck (sel, dir) {
 
@@ -56,9 +54,7 @@ function SlideDeck (sel, dir) {
 
     this.sel = sel;
     this.dir = dir;
-    this.fileMap = {}
-    var slides = []; // array of Slide json dat
-    var fileMap = {}; //{ 'file name' : internal ID }
+    var slides = {}; // obj of Slide json dat
 
     // if no path provided, add a single default slide
     if (!dir) {
@@ -81,15 +77,10 @@ function SlideDeck (sel, dir) {
             dataType: 'json',
             success: function(response) {
                 slides = response;
-                for (var i = 0; i < response.length; i++) {
-                    var file = response[i].file.replace('.json','');
-                    fileMap[file] = i;
-                }
             },
             error: function(error) { console.log(error.responseText); }
         })
         this.slides = slides;
-        this.fileMap = fileMap;
     }
 
     globalSlideDeck = this;  // :(
@@ -104,20 +95,16 @@ function SlideDeck (sel, dir) {
 
 Parameters:
 -----------
-- id : int (optional)
-       internal ID for slide to show, if not
-       specified, the 0th slide is shown
+- slide : str
+          slide name to render
 
 */
-SlideDeck.prototype.show = function(id) {
+SlideDeck.prototype.show = function(slide) {
 
-    // set default
-    id = typeof id === 'undefined' ? 0: id;
+    currentSlide = slide;
+    dat = this.slides[slide];
 
-    currentSlide = id;
-    dat = this.slides[id];
-
-    if (!dat) { throw new Error("Data doesn't exist for slide " + id); }
+    if (!dat) { throw new Error("Data doesn't exist for slide " + slide); }
 
     var containerWidth = jQuery(this.sel).width();
 
@@ -296,23 +283,7 @@ function nextSlide(navTo, el, validate) {
 
         // remove current slide and navigate to next one
         jQuery('#slide').remove()
-        var id = globalSlideDeck.fileMap[navTo]; // lookup which slide we're going to
-        globalSlideDeck.show(id);
+        globalSlideDeck.show(navTo);
     }
 }
 
-
-// display stored profile
-function showProfile() {
-
-
-    d3.select('#slide').append('h2')
-        .html('Current profile')
-
-    for (var key in profile) {
-        d3.select('#slide').append('p')
-            .html('<strong>Slide ' + key + '</strong> ' + JSON.stringify(profile[key]))
-    }
-
-
-}

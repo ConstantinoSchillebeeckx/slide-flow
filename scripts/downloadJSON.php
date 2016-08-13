@@ -18,9 +18,14 @@ sort($files);
 
 $file_dat = [];
 for ($i = 0; $i < count($files); $i++) {
-    $dat = json_decode(file_get_contents($files[$i]), true);
-    is_array($dat) ? $dat['file'] = str_replace($path, '', $files[$i]) : null;
-    $file_dat[] = $dat;
+    $dat = json_decode(file_get_contents($files[$i]), true); // download data from server
+
+    $file = str_replace($path, '', $files[$i]); // make file name
+
+    is_array($dat) ? $dat['file'] = $file : null; 
+
+    $file_dat[$file] = $dat;
+
 }
 
 echo json_encode($file_dat);
