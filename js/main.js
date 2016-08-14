@@ -126,7 +126,7 @@ SlideDeck.prototype.show = function(slide) {
 
         // read more icon
         titleRow.append('div')
-            .attr('class','col-xs-1 col-sm-offset-1')
+            .attr('class','col-xs-1 col-sm-offset-1 text-right')
           .append(dat.readMore.tag)
             .attr("class",dat.readMore.class)
             .attr("role","button")
